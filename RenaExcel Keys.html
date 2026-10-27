@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RenaExcel Keys – Cari Shortcut Excel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#edf3ef; --surface:#ffffff; --ink:#13211a; --muted:#5a6b61; --line:#d3dfd8;
+  --green:#17794a; --green-ink:#ffffff; --key:#ffffff; --key-edge:#b9c9bf; --chip:#dfeae3;
+  color-scheme: light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1a14; --surface:#16251c; --ink:#e7f1ea; --muted:#9db0a4; --line:#27392e;
+    --green:#3fbf82; --green-ink:#07130c; --key:#1d3025; --key-edge:#0a120d; --chip:#1d3025;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1a14; --surface:#16251c; --ink:#e7f1ea; --muted:#9db0a4; --line:#27392e;
+  --green:#3fbf82; --green-ink:#07130c; --key:#1d3025; --key-edge:#0a120d; --chip:#1d3025;
+  color-scheme: dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 Figtree,system-ui,-apple-system,Segoe UI,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:28px 20px 64px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.brand{font:800 20px Bricolage Grotesque,system-ui,sans-serif;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+.logo{width:30px;height:30px;border-radius:8px;background:var(--green);color:var(--green-ink);display:grid;place-items:center;font-weight:800;font-size:17px}
+.seg{display:inline-flex;background:var(--chip);border-radius:999px;padding:3px}
+.seg button{border:0;background:none;color:var(--muted);font:600 14px Figtree,sans-serif;padding:6px 14px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--green);color:var(--green-ink)}
+h1{font:800 clamp(34px,7vw,64px)/1.02 Bricolage Grotesque,system-ui,sans-serif;letter-spacing:-.03em;margin:44px 0 10px;max-width:14ch}
+.sub{color:var(--muted);margin:0 0 26px;max-width:52ch}
+.search{position:relative}
+.search input{width:100%;font:600 clamp(18px,3vw,24px) Figtree,sans-serif;color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:18px 70px 18px 20px;outline:none}
+.search input:focus{border-color:var(--green);box-shadow:0 0 0 4px color-mix(in srgb,var(--green) 22%,transparent)}
+.search kbd{position:absolute;right:16px;top:50%;transform:translateY(-50%)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 8px}
+.chips button{border:0;background:var(--chip);color:var(--ink);font:600 14px Figtree,sans-serif;padding:7px 14px;border-radius:999px;cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.count{color:var(--muted);font-size:14px;margin:6px 0 4px}
+h2{font:700 20px Bricolage Grotesque,system-ui,sans-serif;margin:30px 0 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,440px),1fr));gap:10px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;text-align:left;font:inherit;color:inherit;cursor:pointer;width:100%}
+.row:hover{border-color:var(--green)}
+.row:focus-visible,.chips button:focus-visible,.seg button:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+.desc{flex:1;min-width:0}
+.keys{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end;align-items:center;max-width:55%}
+kbd{font:700 13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--key);color:var(--ink);border:1px solid var(--key-edge);border-bottom-width:3px;border-radius:6px;padding:2px 8px;min-width:28px;text-align:center;white-space:nowrap}
+.then{color:var(--muted);font-size:12px}
+mark{background:color-mix(in srgb,var(--green) 28%,transparent);color:inherit;border-radius:3px}
+.empty{padding:40px 0;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-weight:600;opacity:0;pointer-events:none;transition:.2s}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+footer{margin-top:48px;color:var(--muted);font-size:14px}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+@media (max-width:560px){.row{flex-direction:column;align-items:flex-start}.keys{justify-content:flex-start;max-width:100%}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="logo">R</span>RenaExcel Keys</div>
+    <div class="seg" role="group" aria-label="Sistem operasi">
+      <button id="bWin" aria-pressed="true">Windows</button>
+      <button id="bMac" aria-pressed="false">Mac</button>
+    </div>
+  </div>
+
+  <h1>Lupa shortcut Excel? Cari di sini.</h1>
+  <p class="sub">Ketik fungsinya, misalnya “simpan”, “filter”, atau “paste special”. Klik baris untuk menyalin shortcut-nya.</p>
+
+  <div class="search">
+    <input id="q" type="search" placeholder="Cari shortcut atau fungsi…" autocomplete="off" aria-label="Cari shortcut">
+    <kbd aria-hidden="true">/</kbd>
+  </div>
+  <div class="chips" id="chips" role="group" aria-label="Kategori"></div>
+  <div class="count" id="count" aria-live="polite"></div>
+  <div id="list"></div>
+
+  <footer>Dibuat untuk RenaExcel. Shortcut Mac bisa sedikit berbeda tergantung versi Excel.</footer>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+// [kategori, fungsi, windows, mac (opsional)]. Pisah tombol dengan "+", urutan dengan ",".
+var D=[
+["Umum","Buat workbook baru (new)","Ctrl+N"],
+["Umum","Buka file (open)","Ctrl+O"],
+["Umum","Simpan (save)","Ctrl+S"],
+["Umum","Simpan sebagai (save as)","F12","Cmd+Shift+S"],
+["Umum","Cetak (print)","Ctrl+P"],
+["Umum","Tutup workbook","Ctrl+W"],
+["Umum","Undo, batalkan aksi terakhir","Ctrl+Z"],
+["Umum","Redo, ulangi yang dibatalkan","Ctrl+Y","Cmd+Y"],
+["Umum","Copy","Ctrl+C"],
+["Umum","Cut, potong","Ctrl+X"],
+["Umum","Paste, tempel","Ctrl+V"],
+["Umum","Paste Special (tempel values, format, dll)","Ctrl+Alt+V","Ctrl+Cmd+V"],
+["Umum","Find, cari teks","Ctrl+F"],
+["Umum","Replace, cari dan ganti","Ctrl+H","Ctrl+H"],
+["Umum","Pilih semua (select all)","Ctrl+A"],
+["Umum","Ulangi aksi terakhir (repeat)","F4","Cmd+Y"],
+["Umum","Buka bantuan (help)","F1"],
+["Navigasi","Lompat ke ujung blok data","Ctrl+Arrow","Cmd+Arrow"],
+["Navigasi","Ke sel A1","Ctrl+Home","Fn+Ctrl+Left"],
+["Navigasi","Ke sel terakhir yang berisi data","Ctrl+End","Fn+Ctrl+Right"],
+["Navigasi","Pindah ke sheet berikutnya","Ctrl+PageDown","Fn+Ctrl+Down"],
+["Navigasi","Pindah ke sheet sebelumnya","Ctrl+PageUp","Fn+Ctrl+Up"],
+["Navigasi","Go To, loncat ke sel tertentu","Ctrl+G","Ctrl+G"],
+["Navigasi","Geser satu layar ke kanan","Alt+PageDown","Fn+Down"],
+["Navigasi","Tampilkan sel aktif di layar","Ctrl+Backspace"],
+["Seleksi","Pilih seluruh baris","Shift+Space"],
+["Seleksi","Pilih seluruh kolom","Ctrl+Space","Ctrl+Space"],
+["Seleksi","Pilih sampai ujung data","Ctrl+Shift+Arrow","Cmd+Shift+Arrow"],
+["Seleksi","Pilih sampai sel terakhir","Ctrl+Shift+End"],
+["Seleksi","Pilih area data saat ini (current region)","Ctrl+Shift+*","Cmd+Shift+*"],
+["Seleksi","Pilih hanya sel yang terlihat (visible cells)","Alt+;","Cmd+Shift+Z"],
+["Seleksi","Tambah sel ke seleksi (non-adjacent)","Ctrl+Click","Cmd+Click"],
+["Edit","Edit isi sel (edit cell)","F2","Ctrl+U"],
+["Edit","Isi ke bawah (fill down)","Ctrl+D"],
+["Edit","Isi ke kanan (fill right)","Ctrl+R"],
+["Edit","Flash Fill, isi otomatis berpola","Ctrl+E"],
+["Edit","Baris baru di dalam sel","Alt+Enter","Ctrl+Option+Return"],
+["Edit","Isi semua sel terpilih sekaligus","Ctrl+Enter","Ctrl+Return"],
+["Edit","Masukkan tanggal hari ini","Ctrl+;"],
+["Edit","Masukkan jam sekarang","Ctrl+Shift+:"],
+["Edit","Hapus isi sel (delete)","Delete"],
+["Edit","Hapus sel, baris, atau kolom","Ctrl+-"],
+["Edit","Sisipkan sel, baris, atau kolom (insert)","Ctrl+Shift+Plus","Ctrl+I"],
+["Edit","Sisipkan hyperlink","Ctrl+K"],
+["Edit","Tambah komentar/catatan","Shift+F2","Shift+F2"],
+["Format","Format Cells (buka dialog format)","Ctrl+1"],
+["Format","Bold, tebal","Ctrl+B"],
+["Format","Italic, miring","Ctrl+I"],
+["Format","Underline, garis bawah","Ctrl+U"],
+["Format","Format angka ribuan","Ctrl+Shift+!"],
+["Format","Format mata uang (currency)","Ctrl+Shift+$"],
+["Format","Format persen","Ctrl+Shift+%"],
+["Format","Format tanggal","Ctrl+Shift+#"],
+["Format","Border luar (outline)","Ctrl+Shift+&","Cmd+Option+0"],
+["Format","Hapus border","Ctrl+Shift+_","Cmd+Option+-"],
+["Format","Border semua sisi (all borders)","Alt,H,B,A"],
+["Format","Warna isi sel (fill color)","Alt,H,H"],
+["Format","Wrap text, bungkus teks","Alt,H,W"],
+["Format","Merge and Center","Alt,H,M,C"],
+["Rumus","Mulai rumus (formula)","="],
+["Rumus","AutoSum, jumlah otomatis","Alt+=","Cmd+Shift+T"],
+["Rumus","Ganti referensi: A1, $A$1, A$1, $A1 (absolut)","F4","Cmd+T"],
+["Rumus","Tampilkan semua rumus (show formulas)","Ctrl+`","Ctrl+`"],
+["Rumus","Insert Function","Shift+F3","Fn+Shift+F3"],
+["Rumus","Hitung ulang (calculate now)","F9","Fn+F9"],
+["Rumus","Array formula lama","Ctrl+Shift+Enter","Cmd+Shift+Return"],
+["Rumus","Perluas formula bar","Ctrl+Shift+U","Ctrl+Shift+U"],
+["Rumus","Salin rumus dari sel di atas","Ctrl+'","Ctrl+'"],
+["Data","Buat tabel (Create Table)","Ctrl+T"],
+["Data","Aktif/nonaktifkan filter","Ctrl+Shift+L","Cmd+Shift+F"],
+["Data","Buka dropdown filter","Alt+Down","Option+Down"],
+["Data","Buat PivotTable","Alt,N,V"],
+["Data","Dialog Sort, urutkan data","Alt,A,S,S"],
+["Data","Sembunyikan baris (hide row)","Ctrl+9","Ctrl+9"],
+["Data","Sembunyikan kolom (hide column)","Ctrl+0","Ctrl+0"],
+["Data","Munculkan kembali baris (unhide row)","Ctrl+Shift+(","Cmd+Shift+("],
+["Data","Group baris atau kolom","Alt+Shift+Right","Cmd+Shift+K"],
+["Sheet","Sheet baru","Shift+F11","Fn+Shift+F11"],
+["Sheet","Ganti nama sheet (rename)","Alt,H,O,R"],
+["Sheet","Freeze Panes, bekukan baris atas","Alt,W,F,R"],
+["Sheet","Zoom in atau out","Ctrl+Scroll","Cmd+Scroll"]
+];
+var CATS=["Semua"].concat(D.map(function(d){return d[0]}).filter(function(c,i,a){return a.indexOf(c)===i}));
+var os="win",cat="Semua",q="";
+var $=function(id){return document.getElementById(id)};
+function esc(s){return s.replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function hl(s){
+  var e=esc(s); if(!q) return e;
+  var r=q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+  return e.replace(new RegExp("("+esc(r)+")","ig"),"<mark>$1</mark>");
+}
+function keysOf(d){return os==="mac"?(d[3]||d[2].replace(/Ctrl/g,"Cmd").replace(/Alt/g,"Option")):d[2]}
+function keyHTML(k){
+  var seq=k.indexOf(",")>0&&k.length>1&&k!==",";
+  var parts=seq?k.split(","):k.split("+");
+  if(!seq&&k.indexOf("Plus")<0&&/\+$/.test(k)) parts=k.slice(0,-1).split("+").concat(["+"]);
+  return parts.map(function(p){
+    var t=p==="Plus"?"+":p;
+    if(os==="mac") t=t.replace("Cmd","⌘").replace("Option","⌥").replace("Shift","⇧").replace("Return","↩");
+    return "<kbd>"+esc(t)+"</kbd>";
+  }).join(seq?'<span class="then">lalu</span>':"");
+}
+function render(){
+  var s=q.toLowerCase(),out="",n=0,lastCat="";
+  D.forEach(function(d,i){
+    if(cat!=="Semua"&&d[0]!==cat) return;
+    var k=keysOf(d);
+    if(s&&(d[1]+" "+k+" "+d[0]).toLowerCase().indexOf(s)<0) return;
+    if(d[0]!==lastCat){ if(lastCat) out+="</div>"; out+="<h2>"+d[0]+"</h2><div class='grid'>"; lastCat=d[0]; }
+    out+="<button class='row' data-i='"+i+"'><span class='desc'>"+hl(d[1])+"</span><span class='keys'>"+keyHTML(k)+"</span></button>";
+    n++;
+  });
+  if(lastCat) out+="</div>";
+  $("list").innerHTML=n?out:"<div class='empty'>Belum ketemu untuk “"+esc(q)+"”. Coba kata lain, misalnya “simpan”, “baris”, atau “format”.</div>";
+  $("count").textContent=n+" shortcut ditemukan";
+}
+function chips(){
+  $("chips").innerHTML=CATS.map(function(c){return "<button aria-pressed='"+(c===cat)+"' data-c='"+c+"'>"+c+"</button>"}).join("");
+}
+function toast(m){var t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(function(){t.classList.remove("on")},1400)}
+$("q").addEventListener("input",function(e){q=e.target.value.trim();render()});
+$("chips").addEventListener("click",function(e){var c=e.target.getAttribute("data-c");if(c){cat=c;chips();render()}});
+$("list").addEventListener("click",function(e){
+  var r=e.target.closest(".row");if(!r)return;
+  var txt=keysOf(D[+r.getAttribute("data-i")]).replace(/,/g," lalu ");
+  try{navigator.clipboard.writeText(txt).then(function(){toast("Disalin: "+txt)},function(){})}catch(x){}
+});
+function setOS(v){os=v;$("bWin").setAttribute("aria-pressed",v==="win");$("bMac").setAttribute("aria-pressed",v==="mac");render()}
+$("bWin").onclick=function(){setOS("win")};
+$("bMac").onclick=function(){setOS("mac")};
+if(/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent)) setOS("mac");
+document.addEventListener("keydown",function(e){
+  if(e.key==="/"&&document.activeElement!==$("q")){e.preventDefault();$("q").focus()}
+  if(e.key==="Escape"&&document.activeElement===$("q")){$("q").value="";q="";render()}
+});
+chips();render();
+</script>
+</body>
+</html>
